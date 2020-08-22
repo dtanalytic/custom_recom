@@ -4,20 +4,20 @@ from os import path
 import random
 
 if __name__ == '__main__':
-    data = np.loadtxt(r'../data/ml-100k/u.data')
+    data = np.loadtxt(r'../data/cus_rec/data')
     ij = data[:, :2].astype(int)
     ij -= 1  # original data is in 1-based system
     values = data[:, 2]
-    reviews = sparse.csc_matrix((values, ij.T)).astype(float)
+    rates = sparse.csc_matrix((values, ij.T)).astype(float)
     
-    reviews = reviews.toarray()  
-    U,M = np.where(reviews)
+    rates = rates.toarray()  
+    U,M = np.where(rates)
     
-    # U,M  = reviews.nonzero()
+    # U,M  = rates.nonzero()
     r = random.Random(3)
     test_idxs = np.array(r.sample(range(len(U)), len(U)//10))
-    train = reviews.copy()
+    train = rates.copy()
     train[U[test_idxs], M[test_idxs]] = 0
 
-    test = np.zeros_like(reviews)
-    test[U[test_idxs], M[test_idxs]] = reviews[U[test_idxs], M[test_idxs]]
+    test = np.zeros_like(rates)
+    test[U[test_idxs], M[test_idxs]] = rates[U[test_idxs], M[test_idxs]]
