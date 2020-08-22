@@ -22,4 +22,6 @@ if __name__ == '__main__':
 
 
     test = np.zeros_like(rates)
+    авава
+    вава
     test[U[test_idxs], M[test_idxs]] = rates[U[test_idxs], M[test_idxs]]
